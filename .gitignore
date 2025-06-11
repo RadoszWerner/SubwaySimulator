@@ -72,3 +72,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+/Assets/Scripts/PlayerLogic/PlayerController.cs.meta
+/Assets/Scripts/PlayerLogic/PlayerController.cs
+/Assets/Scripts/PlayerLogic/PlayerInventory.cs
+/Assets/Scripts/PlayerLogic/PlayerInventory.cs.meta
+/Assets/Scripts/ChestsControllers/BreadController.cs
+/Assets/Scripts/ChestsControllers/BreadController.cs.meta
+/Assets/Scripts/ChestsControllers/BreadItemButton.cs
+/Assets/Scripts/ChestsControllers/BreadItemButton.cs.meta
