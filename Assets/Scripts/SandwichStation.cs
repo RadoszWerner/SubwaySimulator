@@ -1,35 +1,48 @@
-Ôªøusing UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 public class SandwichStation : MonoBehaviour
 {
-    [SerializeField] private List<string> requiredOrder = new List<string> { "Chleb", "Szynka", "Ser" };
+    public float interactionRange = 5f;
+    private Inventory playerInventory;
+    public OrderManager orderManager;
 
-    public void OnInteract()
+    void Update()
     {
-        List<string> sandwich = PlayerInventory.Instance.CreateSandwich();
-
-        if (sandwich.Count == 0)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            Debug.Log("Najpierw we≈∫ sk≈Çadniki z lod√≥wki!");
+            float distance = Vector3.Distance(player.transform.position, transform.position);
+            //UnityEngine.Debug.Log($"Odleg≥oúÊ do stanowiska: {distance}, zakres: {interactionRange}");
+
+            if (Input.GetKeyDown(KeyCode.E) && distance <= interactionRange)
+            {
+                Inventory inventory = player.GetComponent<Inventory>();
+                if (inventory != null)
+                {
+                    CreateSandwich(inventory);
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("PlayerInventory jest null!");
+                }
+            }
+        }
+    }
+
+    void CreateSandwich(Inventory inventory)
+    {
+        if (inventory.items.Count < 2)
+        {
+            UnityEngine.Debug.LogWarning("Za ma≥o sk≥adnikÛw w ekwipunku (potrzeba co najmniej 2)!");
             return;
         }
 
-        bool isCorrect = sandwich.SequenceEqual(requiredOrder);
-
-        if (isCorrect)
-        {
-            Debug.Log("PERFEKCYJNA KANAPKA! ü•™");
-            // Tutaj nagroda: np. GameManager.Instance.AddPoints(100);
-        }
-        else
-        {
-            Debug.Log("Z≈Ça kolejno≈õƒá! Otrzymujesz:");
-            foreach (string ingredient in sandwich)
-            {
-                Debug.Log($"- {ingredient}");
-            }
-        }
+        SandwichItem sandwich = new SandwichItem();
+        sandwich.name = orderManager.sandwichName;
+        sandwich.ingredients.AddRange(inventory.items);
+        inventory.items.Clear();
+        inventory.AddItem(sandwich);
+        //inventory.UpdateInventoryUI();
+        UnityEngine.Debug.Log($"Stworzono kanapkÍ z: {sandwich.GetIngredientsSummary()}");
     }
 }

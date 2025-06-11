@@ -1,0 +1,16 @@
+{
+  "breads": [
+    {
+      "id": 1,
+      "name": "Chleb żytni"
+    },
+    {
+      "id": 2,
+      "name": "Chleb pszenny"
+    },
+    {
+      "id": 3,
+      "name": "Bajgiel"
+    }
+  ]
+}
